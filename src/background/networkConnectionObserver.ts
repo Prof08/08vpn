@@ -3,8 +3,8 @@ import { log } from '../lib/logger';
 import { connectivityService } from './connectivity/connectivityService/connectivityFSM';
 import { EVENT } from './connectivity/connectivityService/connectivityConstants';
 
-interface NetworkConnectionObserver {
-    isOnline: () => boolean;
+interface NetworkConnectionObserverInterface {
+    isOnline:() => boolean;
 }
 
 /**
@@ -13,7 +13,7 @@ interface NetworkConnectionObserver {
  * 1. Checks permissions
  * 2. Sends event to connectivity service FSM, to try to reconnect
  */
-class NetworkConnectionObserver implements NetworkConnectionObserver {
+class NetworkConnectionObserver implements NetworkConnectionObserverInterface {
     isOnlineStatus = false;
 
     constructor() {
@@ -42,7 +42,7 @@ class NetworkConnectionObserver implements NetworkConnectionObserver {
         connectivityService.send(EVENT.NETWORK_ONLINE);
     };
 
-    public isOnline = (): boolean => this.isOnlineStatus;
+    isOnline = (): boolean => this.isOnlineStatus;
 }
 
 const networkConnectionObserver = new NetworkConnectionObserver();
